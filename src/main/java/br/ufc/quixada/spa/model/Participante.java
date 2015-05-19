@@ -58,17 +58,15 @@ public class Participante {
 
 	private Double valorPago;
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.DATE)	
 	@DateTimeFormat(pattern = "dd/mm/yyyy")
 	private Date dataPagamento;
 
 	@OneToMany(mappedBy="participante", cascade=CascadeType.ALL)
-	@JsonIgnore
 	private List<Fone> fones;
 	
 	@ManyToMany
 	@JoinTable(name="participante_atividade", joinColumns={@JoinColumn(name="participante_id")}, inverseJoinColumns={@JoinColumn(name="atividade_id")})
-	@JsonIgnore
 	// Especificar join column e inverse join column para evitar que fique: atividades_id e participantes_id 
 	private List<Atividade> atividades;
 	

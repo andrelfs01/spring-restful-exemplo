@@ -20,6 +20,7 @@ import br.ufc.quixada.npi.model.ResponseStatusMessage;
 import br.ufc.quixada.spa.model.Atividade;
 import br.ufc.quixada.spa.model.Participante;
 import br.ufc.quixada.spa.service.AtividadeService;
+import br.ufc.quixada.spa.service.ParticipanteService;
 
 @Named
 @RequestMapping("/atividades")
@@ -29,6 +30,7 @@ public class AtividadeController {
 	
 	@Inject
 	private AtividadeService atividadeService;
+	
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody List<Atividade> findAll() {
@@ -55,25 +57,25 @@ public class AtividadeController {
 		return new ResponseStatusMessage(ResponseStatus.SUCCESS, "Atividade inserida com sucesso");
 	}
 
-	@RequestMapping(value="{idAtividade}/participantes/{idParticipante}", method = RequestMethod.POST)
-	public @ResponseBody ResponseStatusMessage insereParticipanteEmAtividade(@PathVariable Integer idAtividade, @PathVariable Integer idParticipante) {
+	@RequestMapping(value="/insereParticipante", method = RequestMethod.POST)
+	public @ResponseBody ResponseStatusMessage insereParticipanteEmAtividade(@RequestBody Participante participante) {
 		log.debug("Atividade - POST - insere participante em atividade");
-		String msg = atividadeService.insereParticipanteEmAtividade(idParticipante, idAtividade);
+		String msg = atividadeService.insereParticipanteEmAtividade(participante.getId(), participante.getAtividades().get(0).getId());
 		return new ResponseStatusMessage(ResponseStatus.SUCCESS, msg);
 	}
 	
+	@RequestMapping(value="/removerParticipante", method = RequestMethod.DELETE)
+	public @ResponseBody ResponseStatusMessage removeParticipanteDeAtividade(@RequestBody Participante participante) {
+		log.debug("Atividade - DELETE");
+		String msg = atividadeService.removeParticipanteDeAtividade(participante.getId(),participante.getAtividades().get(0).getId());
+		return new ResponseStatusMessage(ResponseStatus.SUCCESS, msg);
+	}
+
 	@RequestMapping(value="{id}", method = RequestMethod.DELETE)
 	public @ResponseBody ResponseStatusMessage delete(@PathVariable Integer id) {
 		log.debug("Atividade - DELETE");
 		atividadeService.delete(new Atividade(id));
 		return new ResponseStatusMessage(ResponseStatus.SUCCESS, "Atividade removida com sucesso");
-	}
-	
-	@RequestMapping(value="{idAtividade}/participantes/{idParticipante}", method = RequestMethod.DELETE)
-	public @ResponseBody ResponseStatusMessage removeParticipanteDeAtividade(@PathVariable Integer idAtividade, @PathVariable Integer idParticipante) {
-		log.debug("Atividade - DELETE");
-		String msg = atividadeService.removeParticipanteDeAtividade(idParticipante, idAtividade);
-		return new ResponseStatusMessage(ResponseStatus.SUCCESS, msg);
 	}
 
 	@RequestMapping(value="{id}", method = RequestMethod.PUT)

@@ -8,6 +8,7 @@ import javax.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import br.ufc.quixada.npi.enumeration.ResponseStatus;
 import br.ufc.quixada.npi.model.ResponseStatusMessage;
 import br.ufc.quixada.npi.service.GenericService;
+import br.ufc.quixada.spa.model.Fone;
 import br.ufc.quixada.spa.model.Participante;
 
 @Named
@@ -38,10 +40,12 @@ public class ParticipanteController {
 		return participanteService.find(Participante.class, id);
 	}
 	
-	
 	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody ResponseStatusMessage insert(Participante participante) {
+	public @ResponseBody ResponseStatusMessage insert(@RequestBody  Participante participante) {
 		log.debug("Participante - POST");
+		for (Fone f : participante.getFones()) {
+			f.setParticipante(participante);
+		}
 		participanteService.save(participante);
 		return new ResponseStatusMessage(ResponseStatus.SUCCESS, "Participante inserido com sucesso");
 	}
