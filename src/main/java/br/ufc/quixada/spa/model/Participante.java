@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,6 +22,7 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Participante {
@@ -55,7 +57,6 @@ public class Participante {
 
 	@Column(nullable=false, unique=true)
 	private String email;
-
 	private Double valorPago;
 	
 	@Temporal(TemporalType.DATE)	
@@ -63,6 +64,7 @@ public class Participante {
 	private Date dataPagamento;
 
 	@OneToMany(mappedBy="participante", cascade=CascadeType.ALL)
+	@JsonManagedReference
 	private List<Fone> fones;
 	
 	@ManyToMany

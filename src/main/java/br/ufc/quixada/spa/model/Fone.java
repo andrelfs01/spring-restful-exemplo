@@ -1,11 +1,15 @@
 package br.ufc.quixada.spa.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Fone {
@@ -33,7 +37,8 @@ public class Fone {
 
 	private String operadora;
 
-	@ManyToOne
+	@ManyToOne 
+	@JsonBackReference
 	private Participante participante;
 	
 	public Integer getId() {

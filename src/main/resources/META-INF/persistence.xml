@@ -33,7 +33,7 @@
   	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <properties>
       <property name="javax.persistence.jdbc.url" 
-                value="jdbc:postgresql://localhost/sisevent" />
+                value="jdbc:postgresql://localhost:5432/sisevent" />
       <property name="javax.persistence.jdbc.driver" 
                 value="org.postgresql.Driver" />
       <property name="javax.persistence.jdbc.user" 

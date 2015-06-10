@@ -37,7 +37,8 @@ public class ParticipanteController {
 	@RequestMapping(value="{id}", method = RequestMethod.GET)
 	public @ResponseBody Participante findById(@PathVariable Integer id) {
 		log.debug("Participante - GET (id)");
-		return participanteService.find(Participante.class, id);
+		Participante p = participanteService.find(Participante.class, id);
+		return p;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)

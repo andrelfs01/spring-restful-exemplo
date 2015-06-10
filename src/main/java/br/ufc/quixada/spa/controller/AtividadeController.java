@@ -56,7 +56,7 @@ public class AtividadeController {
 		atividadeService.save(atividade);
 		return new ResponseStatusMessage(ResponseStatus.SUCCESS, "Atividade inserida com sucesso");
 	}
-
+	
 	@RequestMapping(value="/insereParticipante", method = RequestMethod.POST)
 	public @ResponseBody ResponseStatusMessage insereParticipanteEmAtividade(@RequestBody Participante participante) {
 		log.debug("Atividade - POST - insere participante em atividade");
