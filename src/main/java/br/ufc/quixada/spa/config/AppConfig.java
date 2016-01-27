@@ -27,14 +27,6 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/**").addResourceLocations("/public/");
     }
 	
-//	@Bean
-//	public InternalResourceViewResolver internalResourceViewResolver() {
-//	  InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//	  resolver.setPrefix("/WEB-INF/view/");
-//	  resolver.setSuffix(".jsp");
-//	  return resolver;
-//	}
-	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean() {
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
@@ -44,6 +36,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public JpaTransactionManager jpaTransactionManage() {
+		
 		JpaTransactionManager txManager = new JpaTransactionManager();
 		txManager.setEntityManagerFactory(localContainerEntityManagerFactoryBean().nativeEntityManagerFactory);
 		return txManager;
